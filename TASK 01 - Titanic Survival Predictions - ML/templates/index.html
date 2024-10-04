@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Titanic Survival Prediction</title>
+    <style>
+        body {
+            background-image: url('/static/Titanic picture.jpg'); /* Path to your background image */
+            background-size: cover; /* Cover the entire page */
+            color: white; /* Change text color for better visibility */
+            text-align: center; /* Center the text */
+            font-family: Arial, sans-serif; /* Font style */
+        }
+        .container {
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background for better visibility */
+            padding: 20px;
+            border-radius: 10px; /* Rounded borders */
+            margin: 50px auto; /* Centering the container */
+            max-width: 400px; /* Max width of the container */
+            border: 2px solid white; /* Border for the container */
+        }
+        input, select {
+            width: 100%; /* Full width for inputs */
+            padding: 10px; /* Padding for inputs */
+            margin: 10px 0; /* Margin for inputs */
+            border-radius: 5px; /* Rounded borders for inputs */
+            box-sizing: border-box; /* Ensures padding is included in the width */
+        }
+        button {
+            background-color: #007BFF; /* Button color */
+            color: white; /* Button text color */
+            padding: 10px;
+            border: none;
+            border-radius: 5px; /* Rounded borders for button */
+            cursor: pointer; /* Cursor style */
+        }
+        button:hover {
+            background-color: #0056b3; /* Darker color on hover */
+        }
+        .result {
+            margin-top: 20px; /* Margin for the result */
+            padding: 10px;
+            border: 2px solid white; /* Border for the result */
+            border-radius: 5px; /* Rounded borders for result */
+            background-color: rgba(255, 255, 255, 0.8); /* Light background for result */
+            color: black; /* Black text color for result */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Titanic Survival Prediction</h1>
+        <form method="POST">
+            <label for="Pclass">Passenger Class</label>
+            <select name="Pclass" required>
+                <option value="1">First</option>
+                <option value="2">Second</option>
+                <option value="3">Third</option>
+            </select>
+
+            <label for="Sex">Gender</label> <!-- Changed from for="Gender" to for="Sex" -->
+            <select name="Sex" required>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+
+            <label for="Age">Age(0-80 years)</label>
+            <input type="number" name="Age" step="0.1" required>
+          
+            <label for="SibSp">Siblings/Spouses Aboard</label>
+            <input type="number" name="SibSp" min="0" required>
+
+            <label for="Parch">Parents/Children Aboard</label>
+            <input type="number" name="Parch" min="0" required>
+
+            <label for="Fare">Fare($0-$500)</label>
+            <input type="number" name="Fare" step="0.01" required>
+           
+            <label for="Embarked">Embarked</label>
+            <select name="Embarked" required>
+                <option value="C">Cherbourg</option>
+                <option value="Q">Queenstown</option>
+                <option value="S">Southampton</option>
+            </select>
+
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if prediction is not none %}
+            <div class="result">
+                <h2>Prediction Result:</h2>
+                <p>The predicted survival status is: <strong>{{ 'Survived' if prediction[0] == 1 else 'Not Survived' }}</strong></p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
